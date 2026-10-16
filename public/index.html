@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calzado — Sistema de Gestión</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/main.css" />
+</head>
+<body>
+  <div id="app">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <span class="brand-icon">🥾</span>
+        <div>
+          <div class="brand-name">GESTIÓN</div>
+          <div class="brand-sub">Darc Cuir & Yatay</div>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#dashboard"    class="nav-item active" data-page="dashboard">
+          <span class="nav-icon">◈</span> Dashboard
+        </a>
+        <a href="#insumos"      class="nav-item" data-page="insumos">
+          <span class="nav-icon">◉</span> Insumos
+        </a>
+        <a href="#productos"    class="nav-item" data-page="productos">
+          <span class="nav-icon">◎</span> Productos
+        </a>
+        <a href="#ordenes"      class="nav-item" data-page="ordenes">
+          <span class="nav-icon">◐</span> Órdenes
+        </a>
+        <a href="#pedidos"      class="nav-item" data-page="pedidos">
+          <span class="nav-icon">◑</span> Pedidos
+        </a>
+        <a href="#proveedores"  class="nav-item" data-page="proveedores">
+          <span class="nav-icon">◒</span> Proveedores
+        </a>
+        <a href="#movimientos"  class="nav-item" data-page="movimientos">
+          <span class="nav-icon">◓</span> Movimientos
+        </a>
+      </nav>
+      <div class="sidebar-footer">v1.0.0</div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button class="menu-toggle" id="menuToggle">☰</button>
+        <h1 class="page-title" id="pageTitle">Dashboard</h1>
+        <div class="topbar-actions" id="topbarActions"></div>
+      </header>
+      <div class="page-body" id="pageBody">
+        <!-- Pages rendered here -->
+      </div>
+    </main>
+  </div>
+
+  <!-- Global Modal -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <button class="modal-close" id="modalClose">✕</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/pages/dashboard.js"></script>
+  <script src="/js/pages/insumos.js"></script>
+  <script src="/js/pages/productos.js"></script>
+  <script src="/js/pages/ordenes.js"></script>
+  <script src="/js/pages/pedidos.js"></script>
+  <script src="/js/pages/proveedores.js"></script>
+  <script src="/js/pages/movimientos.js"></script>
+  <script src="/js/router.js"></script>
+</body>
+</html>

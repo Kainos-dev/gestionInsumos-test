@@ -1,0 +1,47 @@
+'use strict';
+
+const express = require('express');
+const router = express.Router();
+const { all, get } = require('../db/database');
+const { getAlertasStock } = require('../services/stockService');
+
+router.get('/', (req, res) => {
+  const alertas = getAlertasStock();
+
+  const ordenes_recientes = all(`
+    SELECT o.*, COUNT(d.id) AS lineas, SUM(d.cantidad) AS total_pares
+    FROM ordenes_produccion o
+    LEFT JOIN detalle_orden d ON d.orden_id=o.id
+    GROUP BY o.id
+    ORDER BY o.created_at DESC
+    LIMIT 5
+  `);
+
+  const pedidos_pendientes = all(`
+    SELECT pp.*, pr.nombre AS proveedor_nombre
+    FROM pedidos_proveedor pp
+    JOIN proveedores pr ON pr.id=pp.proveedor_id
+    WHERE pp.estado IN ('borrador','enviado')
+    ORDER BY pp.created_at DESC
+  `);
+
+  const totales = {
+    insumos: get('SELECT COUNT(*) AS n FROM insumos').n,
+    productos: get('SELECT COUNT(*) AS n FROM productos').n,
+    proveedores: get('SELECT COUNT(*) AS n FROM proveedores').n,
+    ordenes_borrador: get("SELECT COUNT(*) AS n FROM ordenes_produccion WHERE estado='borrador'").n,
+  };
+
+  const stock_bajo = alertas.filter(a => a.stock >= 0);
+  const faltantes = alertas.filter(a => a.stock < 0);
+
+  res.json({
+    totales,
+    stock_bajo,
+    faltantes,
+    ordenes_recientes,
+    pedidos_pendientes,
+  });
+});
+
+module.exports = router;
